@@ -182,16 +182,38 @@ p {
 }
 
 .nav-logo {
-  font-family: var(--font-heading);
-  font-size: 1.5rem;
-  color: var(--color-white);
-  font-weight: 500;
-  letter-spacing: 4px;
-  text-transform: uppercase;
+  display: flex;
+  align-items: center;
 }
 
-.nav-logo span {
-  color: var(--color-gold);
+.nav-logo img {
+  height: 50px;
+  width: auto;
+  transition: var(--transition);
+}
+
+.navbar.scrolled .nav-logo img {
+  height: 40px;
+}
+
+/* Hero logo */
+.hero-logo {
+  max-width: 500px;
+  width: 100%;
+  margin-bottom: 32px;
+  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
+}
+
+.hero-logo img {
+  width: 100%;
+  height: auto;
+}
+
+/* Footer logo */
+.footer-logo-img {
+  height: 60px;
+  width: auto;
+  margin-bottom: 16px;
 }
 
 .nav-links {
