@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book an Appointment | Unwind: Collaborative Healing Center</title>
+  <meta name="description" content="Book your appointment at Unwind Collaborative Healing Center. Craniosacral Therapy, Lactation Services, Doula Support, and more across Minnesota and North Dakota.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    /* Booking-specific styles */
+    .booking-section {
+      padding: 100px 0 60px;
+      background: var(--color-white);
+    }
+
+    .booking-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .booking-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .booking-header .section-subtitle {
+      margin: 0 auto;
+    }
+
+    /* Progress steps */
+    .booking-progress {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 48px;
+    }
+
+    .progress-step {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .progress-dot {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border: 2px solid var(--color-cream-dark);
+      color: var(--color-text-light);
+      background: var(--color-white);
+      transition: var(--transition);
+    }
+
+    .progress-step.active .progress-dot {
+      background: var(--color-gold);
+      border-color: var(--color-gold);
+      color: var(--color-white);
+    }
+
+    .progress-step.completed .progress-dot {
+      background: var(--color-forest);
+      border-color: var(--color-forest);
+      color: var(--color-white);
+    }
+
+    .progress-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--color-text-light);
+      display: none;
+    }
+
+    .progress-step.active .progress-label {
+      color: var(--color-gold);
+    }
+
+    .progress-line {
+      width: 40px;
+      height: 2px;
+      background: var(--color-cream-dark);
+      align-self: center;
+    }
+
+    @media (min-width: 600px) {
+      .progress-label { display: block; }
+    }
+
+    /* Booking steps */
+    .booking-step {
+      display: none;
+    }
+
+    .booking-step.active {
+      display: block;
+      animation: fadeUp 0.4s ease;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-title {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      color: var(--color-forest-dark);
+      margin-bottom: 8px;
+    }
+
+    .step-subtitle {
+      color: var(--color-text-light);
+      margin-bottom: 32px;
+    }
+
+    /* Service selection cards */
+    .service-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .service-option {
+      background: var(--color-cream);
+      border: 2px solid transparent;
+      border-radius: 14px;
+      padding: 24px 20px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .service-option:hover {
+      border-color: var(--color-gold-light);
+      transform: translateY(-2px);
+    }
+
+    .service-option.selected {
+      border-color: var(--color-gold);
+      background: rgba(201, 168, 76, 0.08);
+      box-shadow: 0 4px 20px rgba(201, 168, 76, 0.15);
+    }
+
+    .service-option-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--color-forest);
+      border-radius: 50%;
+    }
+
+    .service-option-icon svg {
+      width: 22px;
+      height: 22px;
+      fill: var(--color-gold);
+    }
+
+    .service-option h4 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .service-option p {
+      font-size: 0.8rem;
+      margin: 0;
+      color: var(--color-text-light);
+    }
+
+    .service-option .duration {
+      display: inline-block;
+      margin-top: 8px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--color-gold);
+      letter-spacing: 0.5px;
+    }
+
+    /* Location selection */
+    .location-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+    }
+
+    .location-option {
+      background: var(--color-cream);
+      border: 2px solid transparent;
+      border-radius: 14px;
+      padding: 24px 16px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .location-option:hover {
+      border-color: var(--color-gold-light);
+    }
+
+    .location-option.selected {
+      border-color: var(--color-gold);
+      background: rgba(201, 168, 76, 0.08);
+    }
+
+    .location-option h4 {
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+
+    .location-option p {
+      font-size: 0.8rem;
+      margin: 0;
+    }
+
+    .location-option.home-visit {
+      grid-column: 1 / -1;
+    }
+
+    /* Date & Time */
+    .datetime-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .date-picker-wrapper label,
+    .time-picker-wrapper label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .date-picker-wrapper input[type="date"],
+    .time-select {
+      width: 100%;
+      padding: 14px 18px;
+      border: 1px solid var(--color-cream-dark);
+      border-radius: 10px;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--color-text);
+      background: var(--color-cream);
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .date-picker-wrapper input:focus,
+    .time-select:focus {
+      outline: none;
+      border-color: var(--color-gold);
+      box-shadow: 0 0 0 3px rgba(201, 168, 76, 0.1);
+    }
+
+    .preferred-times {
+      margin-top: 24px;
+    }
+
+    .preferred-times label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .time-slots {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .time-slot {
+      padding: 10px 20px;
+      border: 1px solid var(--color-cream-dark);
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--color-cream);
+      color: var(--color-text);
+    }
+
+    .time-slot:hover {
+      border-color: var(--color-gold);
+    }
+
+    .time-slot.selected {
+      background: var(--color-gold);
+      border-color: var(--color-gold);
+      color: var(--color-white);
+    }
+
+    .scheduling-note {
+      margin-top: 24px;
+      padding: 16px 20px;
+      background: rgba(201, 168, 76, 0.08);
+      border-radius: 10px;
+      border-left: 3px solid var(--color-gold);
+    }
+
+    .scheduling-note p {
+      font-size: 0.85rem;
+      margin: 0;
+      color: var(--color-text);
+    }
+
+    /* Review summary */
+    .review-card {
+      background: var(--color-cream);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+
+    .review-card h4 {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--color-gold);
+      margin-bottom: 16px;
+    }
+
+    .review-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--color-cream-dark);
+    }
+
+    .review-row:last-child {
+      border-bottom: none;
+    }
+
+    .review-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--color-text);
+    }
+
+    .review-value {
+      font-size: 0.85rem;
+      color: var(--color-text-light);
+      text-align: right;
+    }
+
+    /* Navigation buttons */
+    .booking-nav {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--color-cream-dark);
+    }
+
+    .booking-nav .btn {
+      min-width: 160px;
+      text-align: center;
+    }
+
+    .btn-back {
+      background: transparent;
+      color: var(--color-text-light);
+      border-color: var(--color-cream-dark);
+    }
+
+    .btn-back:hover {
+      color: var(--color-text);
+      border-color: var(--color-text);
+    }
+
+    /* Confirmation */
+    .confirmation {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .confirmation-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--color-forest);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+
+    .confirmation-icon svg {
+      width: 40px;
+      height: 40px;
+      fill: var(--color-gold);
+    }
+
+    .confirmation h2 {
+      margin-bottom: 12px;
+    }
+
+    .confirmation p {
+      font-size: 1.05rem;
+      max-width: 500px;
+      margin: 0 auto 12px;
+    }
+
+    .confirmation-details {
+      background: var(--color-cream);
+      border-radius: 16px;
+      padding: 32px;
+      max-width: 500px;
+      margin: 32px auto 0;
+      text-align: left;
+    }
+
+    /* New client toggle */
+    .new-client-toggle {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .client-type-btn {
+      flex: 1;
+      padding: 14px;
+      border: 2px solid var(--color-cream-dark);
+      border-radius: 10px;
+      background: var(--color-white);
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
+    }
+
+    .client-type-btn.selected {
+      border-color: var(--color-gold);
+      background: rgba(201, 168, 76, 0.08);
+      color: var(--color-forest-dark);
+    }
+
+    @media (max-width: 768px) {
+      .service-options {
+        grid-template-columns: 1fr;
+      }
+      .location-options {
+        grid-template-columns: 1fr;
+      }
+      .datetime-grid {
+        grid-template-columns: 1fr;
+      }
+      .booking-nav {
+        flex-direction: column-reverse;
+        gap: 12px;
+      }
+      .booking-nav .btn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="nav-container">
+      <a href="../index.html" class="nav-logo"><img src="../images/unwind-logo.png" alt="Unwind: Collaborative Healing Center"></a>
+      <div class="nav-links" id="navLinks">
+        <a href="../index.html">Home</a>
+        <a href="services.html">Services</a>
+        <a href="classes.html">Classes</a>
+        <a href="about.html">Our Team</a>
+        <a href="contact.html">Contact</a>
+        <a href="book.html" class="btn btn-primary active">Book Now</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Page Hero -->
+  <section class="page-hero">
+    <div class="container">
+      <h1>Book an Appointment</h1>
+      <p>Schedule your visit in just a few steps. We'll confirm your appointment within 24 hours.</p>
+    </div>
+  </section>
+
+  <!-- Booking Form -->
+  <section class="booking-section">
+    <div class="container">
+      <div class="booking-container">
+
+        <!-- Progress Bar -->
+        <div class="booking-progress" id="bookingProgress">
+          <div class="progress-step active" data-step="1">
+            <div class="progress-dot">1</div>
+            <span class="progress-label">Service</span>
+          </div>
+          <div class="progress-line"></div>
+          <div class="progress-step" data-step="2">
+            <div class="progress-dot">2</div>
+            <span class="progress-label">Location</span>
+          </div>
+          <div class="progress-line"></div>
+          <div class="progress-step" data-step="3">
+            <div class="progress-dot">3</div>
+            <span class="progress-label">Date & Time</span>
+          </div>
+          <div class="progress-line"></div>
+          <div class="progress-step" data-step="4">
+            <div class="progress-dot">4</div>
+            <span class="progress-label">Your Info</span>
+          </div>
+          <div class="progress-line"></div>
+          <div class="progress-step" data-step="5">
+            <div class="progress-dot">5</div>
+            <span class="progress-label">Review</span>
+          </div>
+        </div>
+
+        <!-- Step 1: Select Service -->
+        <div class="booking-step active" id="step1">
+          <h3 class="step-title">Choose a Service</h3>
+          <p class="step-subtitle">Select the service you'd like to book.</p>
+
+          <div class="service-options" id="serviceOptions">
+            <div class="service-option" data-service="Craniosacral Therapy / MFR" data-duration="60 min">
+              <div class="service-option-icon">
+                <svg viewBox="0 0 24 24"><path d="M16.5 3c-1.74 0-3.41.81-4.5 2.09C10.91 3.81 9.24 3 7.5 3 4.42 3 2 5.42 2 8.5c0 3.78 3.4 6.86 8.55 11.54L12 21.35l1.45-1.32C18.6 15.36 22 12.28 22 8.5 22 5.42 19.58 3 16.5 3z"/></svg>
+              </div>
+              <h4>Craniosacral Therapy / MFR</h4>
+              <p>Light-touch therapy for all ages</p>
+              <span class="duration">60 min</span>
+            </div>
+
+            <div class="service-option" data-service="Infant Craniosacral Therapy" data-duration="45 min">
+              <div class="service-option-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              </div>
+              <h4>Infant CST</h4>
+              <p>Specialized care for babies</p>
+              <span class="duration">45 min</span>
+            </div>
+
+            <div class="service-option" data-service="Lactation Consultation" data-duration="60-90 min">
+              <div class="service-option-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+              </div>
+              <h4>Lactation Consultation</h4>
+              <p>Evidence-based feeding support</p>
+              <span class="duration">60–90 min</span>
+            </div>
+
+            <div class="service-option" data-service="Combined Bodywork & Lactation" data-duration="90 min">
+              <div class="service-option-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <h4>Bodywork + Lactation</h4>
+              <p>Combined session for parents</p>
+              <span class="duration">90 min</span>
+            </div>
+
+            <div class="service-option" data-service="Doula Consultation" data-duration="60 min">
+              <div class="service-option-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-2.98 0-5.4-2.42-5.4-5.4 0-1.81.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
+              </div>
+              <h4>Doula Consultation</h4>
+              <p>Pregnancy, birth & postpartum</p>
+              <span class="duration">60 min</span>
+            </div>
+
+            <div class="service-option" data-service="Life & Wellness Coaching" data-duration="60 min">
+              <div class="service-option-icon">
+                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <h4>Wellness Coaching</h4>
+              <p>Life & wellness guidance</p>
+              <span class="duration">60 min</span>
+            </div>
+          </div>
+
+          <div class="booking-nav">
+            <div></div>
+            <button class="btn btn-primary" id="toStep2" disabled>Continue</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Select Location -->
+        <div class="booking-step" id="step2">
+          <h3 class="step-title">Choose a Location</h3>
+          <p class="step-subtitle">Where would you like your appointment?</p>
+
+          <div class="location-options" id="locationOptions">
+            <div class="location-option" data-location="Alexandria, MN" data-address="621 Hawthorne St, Alexandria, MN 56308">
+              <h4>Alexandria</h4>
+              <p>621 Hawthorne St</p>
+              <p>Alexandria, MN 56308</p>
+            </div>
+            <div class="location-option" data-location="St. Joseph, MN" data-address="19 E Ash St, St. Joseph, MN 56374">
+              <h4>St. Joseph</h4>
+              <p>19 E Ash St</p>
+              <p>St. Joseph, MN 56374</p>
+            </div>
+            <div class="location-option" data-location="Fargo, ND" data-address="4040 42nd St S, Suite K, Fargo, ND 58104">
+              <h4>Fargo</h4>
+              <p>4040 42nd St S, Ste K</p>
+              <p>Fargo, ND 58104</p>
+            </div>
+            <div class="location-option home-visit" data-location="Home Visit" data-address="We come to you">
+              <h4>Home Visit</h4>
+              <p>We come to you (Alexandria & St. Joseph areas)</p>
+            </div>
+          </div>
+
+          <div class="booking-nav">
+            <button class="btn btn-back" id="backTo1">Back</button>
+            <button class="btn btn-primary" id="toStep3" disabled>Continue</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Date & Time -->
+        <div class="booking-step" id="step3">
+          <h3 class="step-title">Preferred Date & Time</h3>
+          <p class="step-subtitle">Select your preferred appointment date and time window.</p>
+
+          <div class="datetime-grid">
+            <div class="date-picker-wrapper">
+              <label for="bookingDate">Preferred Date <span class="required">*</span></label>
+              <input type="date" id="bookingDate" required>
+            </div>
+            <div class="date-picker-wrapper">
+              <label for="altDate">Alternate Date (optional)</label>
+              <input type="date" id="altDate">
+            </div>
+          </div>
+
+          <div class="preferred-times">
+            <label>Preferred Time Window <span class="required">*</span></label>
+            <div class="time-slots" id="timeSlots">
+              <div class="time-slot" data-time="Early Morning (8-10am)">8–10 AM</div>
+              <div class="time-slot" data-time="Late Morning (10am-12pm)">10 AM–12 PM</div>
+              <div class="time-slot" data-time="Early Afternoon (12-2pm)">12–2 PM</div>
+              <div class="time-slot" data-time="Late Afternoon (2-4pm)">2–4 PM</div>
+              <div class="time-slot" data-time="Evening (4-6pm)">4–6 PM</div>
+            </div>
+          </div>
+
+          <div class="scheduling-note">
+            <p><strong>Note:</strong> We'll confirm your exact appointment time within 24 hours via email or phone. Selecting a time window helps us find the best slot for you.</p>
+          </div>
+
+          <div class="booking-nav">
+            <button class="btn btn-back" id="backTo2">Back</button>
+            <button class="btn btn-primary" id="toStep4" disabled>Continue</button>
+          </div>
+        </div>
+
+        <!-- Step 4: Client Info -->
+        <div class="booking-step" id="step4">
+          <h3 class="step-title">Your Information</h3>
+          <p class="step-subtitle">Tell us about yourself so we can best serve you.</p>
+
+          <div class="new-client-toggle">
+            <button class="client-type-btn selected" data-type="New Client" id="newClientBtn">New Client</button>
+            <button class="client-type-btn" data-type="Returning Client" id="returningClientBtn">Returning Client</button>
+          </div>
+
+          <form id="clientForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="bookFirstName">First Name <span class="required">*</span></label>
+                <input type="text" id="bookFirstName" name="firstName" required>
+              </div>
+              <div class="form-group">
+                <label for="bookLastName">Last Name <span class="required">*</span></label>
+                <input type="text" id="bookLastName" name="lastName" required>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="bookEmail">Email <span class="required">*</span></label>
+                <input type="email" id="bookEmail" name="email" required>
+              </div>
+              <div class="form-group">
+                <label for="bookPhone">Phone <span class="required">*</span></label>
+                <input type="tel" id="bookPhone" name="phone" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="bookAddress">Street Address</label>
+              <input type="text" id="bookAddress" name="address">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="bookCity">City</label>
+                <input type="text" id="bookCity" name="city">
+              </div>
+              <div class="form-group">
+                <label for="bookState">State</label>
+                <input type="text" id="bookState" name="state" value="MN">
+              </div>
+            </div>
+
+            <div class="form-group" style="max-width: 200px;">
+              <label for="bookZip">Zip Code</label>
+              <input type="text" id="bookZip" name="zip">
+            </div>
+
+            <div class="form-group">
+              <label for="bookReason">Reason for Visit / Concerns</label>
+              <textarea id="bookReason" name="reason" rows="3" placeholder="Tell us what brings you in — pain, feeding concerns, pregnancy support, etc."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="bookReferral">How Did You Hear About Us?</label>
+              <select id="bookReferral" name="referral">
+                <option value="">Select one...</option>
+                <option value="Facebook">Facebook</option>
+                <option value="Instagram">Instagram</option>
+                <option value="Google">Google Search</option>
+                <option value="Word of Mouth">Word of Mouth</option>
+                <option value="Provider Referral">Provider Referral</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="bookNotes">Additional Notes</label>
+              <textarea id="bookNotes" name="notes" rows="2" placeholder="Anything else we should know?"></textarea>
+            </div>
+          </form>
+
+          <div class="booking-nav">
+            <button class="btn btn-back" id="backTo3">Back</button>
+            <button class="btn btn-primary" id="toStep5">Review Booking</button>
+          </div>
+        </div>
+
+        <!-- Step 5: Review & Submit -->
+        <div class="booking-step" id="step5">
+          <h3 class="step-title">Review Your Booking</h3>
+          <p class="step-subtitle">Please confirm your details are correct before submitting.</p>
+
+          <div class="review-card">
+            <h4>Appointment Details</h4>
+            <div class="review-row">
+              <span class="review-label">Service</span>
+              <span class="review-value" id="reviewService">—</span>
+            </div>
+            <div class="review-row">
+              <span class="review-label">Duration</span>
+              <span class="review-value" id="reviewDuration">—</span>
+            </div>
+            <div class="review-row">
+              <span class="review-label">Location</span>
+              <span class="review-value" id="reviewLocation">—</span>
+            </div>
+            <div class="review-row">
+              <span class="review-label">Preferred Date</span>
+              <span class="review-value" id="reviewDate">—</span>
+            </div>
+            <div class="review-row">
+              <span class="review-label">Time Window</span>
+              <span class="review-value" id="reviewTime">—</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <h4>Your Information</h4>
+            <div class="review-row">
+              <span class="review-label">Name</span>
+              <span class="review-value" id="reviewName">—</span>
+            </div>
+            <div class="review-row">
+              <span class="review-label">Email</span>
+              <span class="review-value" id="reviewEmail">—</span>
+            </div>
+            <div class="review-row">
+              <span class="review-label">Phone</span>
+              <span class="review-value" id="reviewPhone">—</span>
+            </div>
+            <div class="review-row">
+              <span class="review-label">Client Type</span>
+              <span class="review-value" id="reviewClientType">—</span>
+            </div>
+          </div>
+
+          <div class="booking-nav">
+            <button class="btn btn-back" id="backTo4">Back</button>
+            <button class="btn btn-primary" id="submitBooking">Submit Booking Request</button>
+          </div>
+        </div>
+
+        <!-- Confirmation -->
+        <div class="booking-step" id="stepConfirmation">
+          <div class="confirmation">
+            <div class="confirmation-icon">
+              <svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </div>
+            <h2>Booking Request Received!</h2>
+            <p>Thank you! We'll review your request and confirm your appointment within 24 hours via email or phone.</p>
+            <p style="color: var(--color-gold); font-weight: 600;">Check your email for a confirmation.</p>
+
+            <div class="confirmation-details">
+              <div class="review-row">
+                <span class="review-label">Service</span>
+                <span class="review-value" id="confirmService">—</span>
+              </div>
+              <div class="review-row">
+                <span class="review-label">Location</span>
+                <span class="review-value" id="confirmLocation">—</span>
+              </div>
+              <div class="review-row">
+                <span class="review-label">Preferred Date</span>
+                <span class="review-value" id="confirmDate">—</span>
+              </div>
+            </div>
+
+            <!-- Stripe Payment Section -->
+            <div style="margin-top: 32px; padding: 24px; background: rgba(201,168,76,0.08); border-radius: 12px; border: 1px solid var(--color-gold);">
+              <h4 style="font-family: var(--font-heading); color: var(--color-forest-dark); margin-bottom: 8px;">Ready to Pay?</h4>
+              <p style="font-size: 0.9rem; margin-bottom: 16px;">If applicable, you can pay for your session now using our secure payment link. Payment can also be made at your appointment.</p>
+              <a href="PASTE_YOUR_STRIPE_PAYMENT_LINK_HERE" target="_blank" rel="noopener" class="btn btn-primary" id="stripePayBtn" style="margin-right: 12px;">
+                Pay Now with Stripe
+              </a>
+              <a href="../index.html" class="btn btn-outline-dark">Pay Later</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="../index.html" class="nav-logo"><img src="../images/unwind-logo.png" alt="Unwind: Collaborative Healing Center"></a>
+          <p>Collaborative Healing Center serving Minnesota and North Dakota since 2013.</p>
+          <div class="contact-social">
+            <a href="https://www.facebook.com/unwindMN/" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/unwindmn/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="classes.html">Classes & Workshops</a></li>
+            <li><a href="about.html">Our Team</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Services</h4>
+          <ul>
+            <li><a href="services.html">Craniosacral Therapy</a></li>
+            <li><a href="services.html">Lactation Services</a></li>
+            <li><a href="services.html">Doula Services</a></li>
+            <li><a href="services.html">Wellness Coaching</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contact</h4>
+          <ul>
+            <li><a href="mailto:unwindmn@gmail.com">unwindmn@gmail.com</a></li>
+            <li><a href="tel:320-304-4873">(320) 304-4873</a></li>
+            <li><a href="book.html">Book Online</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 Unwind: Collaborative Healing Center. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // ============================================
+    // Booking System
+    // ============================================
+
+    const BOOKING_SHEETS_URL = 'PASTE_YOUR_BOOKING_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+    // State
+    const booking = {
+      service: '',
+      duration: '',
+      location: '',
+      address: '',
+      date: '',
+      altDate: '',
+      timeWindow: '',
+      clientType: 'New Client',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      streetAddress: '',
+      city: '',
+      state: '',
+      zip: '',
+      reason: '',
+      referral: '',
+      notes: ''
+    };
+
+    let currentStep = 1;
+
+    // --- Step navigation ---
+    function goToStep(step) {
+      document.querySelectorAll('.booking-step').forEach(s => s.classList.remove('active'));
+      document.getElementById(step <= 5 ? `step${step}` : 'stepConfirmation').classList.add('active');
+
+      document.querySelectorAll('.progress-step').forEach(ps => {
+        const s = parseInt(ps.dataset.step);
+        ps.classList.remove('active', 'completed');
+        if (s === step) ps.classList.add('active');
+        else if (s < step) ps.classList.add('completed');
+      });
+
+      currentStep = step;
+      window.scrollTo({ top: 300, behavior: 'smooth' });
+    }
+
+    // --- Step 1: Service selection ---
+    document.querySelectorAll('.service-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.service-option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        booking.service = opt.dataset.service;
+        booking.duration = opt.dataset.duration;
+        document.getElementById('toStep2').disabled = false;
+      });
+    });
+
+    document.getElementById('toStep2').addEventListener('click', () => goToStep(2));
+
+    // --- Step 2: Location selection ---
+    document.querySelectorAll('.location-option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.location-option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        booking.location = opt.dataset.location;
+        booking.address = opt.dataset.address;
+        document.getElementById('toStep3').disabled = false;
+      });
+    });
+
+    document.getElementById('toStep3').addEventListener('click', () => goToStep(3));
+    document.getElementById('backTo1').addEventListener('click', () => goToStep(1));
+
+    // --- Step 3: Date & Time ---
+    const bookingDate = document.getElementById('bookingDate');
+    const altDate = document.getElementById('altDate');
+    const timeSlots = document.querySelectorAll('.time-slot');
+
+    // Set min date to today
+    const today = new Date().toISOString().split('T')[0];
+    bookingDate.min = today;
+    altDate.min = today;
+
+    function checkStep3Valid() {
+      const hasDate = bookingDate.value;
+      const hasTime = booking.timeWindow;
+      document.getElementById('toStep4').disabled = !(hasDate && hasTime);
+    }
+
+    bookingDate.addEventListener('change', () => {
+      booking.date = bookingDate.value;
+      checkStep3Valid();
+    });
+
+    altDate.addEventListener('change', () => {
+      booking.altDate = altDate.value;
+    });
+
+    timeSlots.forEach(slot => {
+      slot.addEventListener('click', () => {
+        timeSlots.forEach(s => s.classList.remove('selected'));
+        slot.classList.add('selected');
+        booking.timeWindow = slot.dataset.time;
+        checkStep3Valid();
+      });
+    });
+
+    document.getElementById('toStep4').addEventListener('click', () => goToStep(4));
+    document.getElementById('backTo2').addEventListener('click', () => goToStep(2));
+
+    // --- Step 4: Client Info ---
+    document.getElementById('newClientBtn').addEventListener('click', () => {
+      booking.clientType = 'New Client';
+      document.getElementById('newClientBtn').classList.add('selected');
+      document.getElementById('returningClientBtn').classList.remove('selected');
+    });
+
+    document.getElementById('returningClientBtn').addEventListener('click', () => {
+      booking.clientType = 'Returning Client';
+      document.getElementById('returningClientBtn').classList.add('selected');
+      document.getElementById('newClientBtn').classList.remove('selected');
+    });
+
+    document.getElementById('toStep5').addEventListener('click', () => {
+      // Validate required fields
+      const firstName = document.getElementById('bookFirstName').value.trim();
+      const lastName = document.getElementById('bookLastName').value.trim();
+      const email = document.getElementById('bookEmail').value.trim();
+      const phone = document.getElementById('bookPhone').value.trim();
+
+      if (!firstName || !lastName || !email || !phone) {
+        showToast('Please fill in all required fields.', 'error');
+        return;
+      }
+
+      // Save to booking state
+      booking.firstName = firstName;
+      booking.lastName = lastName;
+      booking.email = email;
+      booking.phone = phone;
+      booking.streetAddress = document.getElementById('bookAddress').value.trim();
+      booking.city = document.getElementById('bookCity').value.trim();
+      booking.state = document.getElementById('bookState').value.trim();
+      booking.zip = document.getElementById('bookZip').value.trim();
+      booking.reason = document.getElementById('bookReason').value.trim();
+      booking.referral = document.getElementById('bookReferral').value;
+      booking.notes = document.getElementById('bookNotes').value.trim();
+
+      // Populate review
+      document.getElementById('reviewService').textContent = booking.service;
+      document.getElementById('reviewDuration').textContent = booking.duration;
+      document.getElementById('reviewLocation').textContent = booking.location;
+
+      const dateObj = new Date(booking.date + 'T12:00:00');
+      document.getElementById('reviewDate').textContent = dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+      document.getElementById('reviewTime').textContent = booking.timeWindow;
+      document.getElementById('reviewName').textContent = `${booking.firstName} ${booking.lastName}`;
+      document.getElementById('reviewEmail').textContent = booking.email;
+      document.getElementById('reviewPhone').textContent = booking.phone;
+      document.getElementById('reviewClientType').textContent = booking.clientType;
+
+      goToStep(5);
+    });
+
+    document.getElementById('backTo3').addEventListener('click', () => goToStep(3));
+
+    // --- Step 5: Submit ---
+    document.getElementById('backTo4').addEventListener('click', () => goToStep(4));
+
+    document.getElementById('submitBooking').addEventListener('click', async () => {
+      const btn = document.getElementById('submitBooking');
+      btn.disabled = true;
+      btn.textContent = 'Submitting...';
+
+      const formData = new FormData();
+      Object.keys(booking).forEach(key => {
+        formData.append(key, booking[key]);
+      });
+
+      try {
+        if (BOOKING_SHEETS_URL !== 'PASTE_YOUR_BOOKING_GOOGLE_APPS_SCRIPT_URL_HERE') {
+          await fetch(BOOKING_SHEETS_URL, {
+            method: 'POST',
+            body: formData,
+          });
+        }
+
+        // Show confirmation
+        document.getElementById('confirmService').textContent = booking.service;
+        document.getElementById('confirmLocation').textContent = booking.location;
+        const dateObj = new Date(booking.date + 'T12:00:00');
+        document.getElementById('confirmDate').textContent = dateObj.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+        goToStep(6);
+        showToast('Booking request submitted successfully!', 'success');
+
+      } catch (error) {
+        console.error('Booking submission error:', error);
+        showToast('There was an error submitting your booking. Please try again or call us directly.', 'error');
+        btn.disabled = false;
+        btn.textContent = 'Submit Booking Request';
+      }
+    });
+  </script>
+</body>
+</html>
