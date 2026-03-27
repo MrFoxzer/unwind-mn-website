@@ -198,15 +198,17 @@ p {
 
 /* Hero logo */
 .hero-logo {
-  max-width: 500px;
+  max-width: 550px;
   width: 100%;
   margin-bottom: 32px;
-  filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
 }
 
 .hero-logo img {
   width: 100%;
   height: auto;
+  mix-blend-mode: screen;
+  opacity: 0.95;
+  filter: brightness(1.1) contrast(1.05);
 }
 
 /* Footer logo */
